@@ -6,11 +6,11 @@ export default function Navigation() {
   const isActive = (path) => location.pathname === path
 
   const navLinks = [
-    { path: '/', label: 'Home' },
-    { path: '/about', label: 'About' },
-    { path: '/charter', label: 'Fund Charter' },
+    { path: '/', label: 'Learn the Market' },
+    { path: '/about', label: 'Market Simulation Game' },
+    { path: '/charter', label: 'Portfolio Dashboard' },
     { path: '/ips', label: 'IPS' },
-    { path: '/training', label: 'Training Pathway' },
+    { path: '/training', label: 'AI Assistant' },
   ]
 
   return (

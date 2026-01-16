@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
+import AIAssistant from './components/AIAssistant'
 import Homepage from './pages/Homepage'
 import About from './pages/About'
 import Charter from './pages/Charter'
@@ -22,6 +23,7 @@ function App() {
           </Routes>
         </main>
         <Footer />
+        <AIAssistant />
       </div>
     </Router>
   )
