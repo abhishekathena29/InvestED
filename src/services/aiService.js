@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
 
-// Get API key from environment variable or use provided key
-const API_KEY = import.meta.env.VITE_GOOGLE_AI_API_KEY || 'AIzaSyDbRG9vjofyZ20G8HXLv16jP9zZFRBrgA8'
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY
+const MODEL_NAME = import.meta.env.VITE_GEMINI_MODEL || 'gemini-2.0-flash'
 
 let genAI, model
 let useAPI = false
@@ -9,10 +9,11 @@ let useAPI = false
 try {
   if (API_KEY) {
     genAI = new GoogleGenerativeAI(API_KEY)
-    // Try gemini-pro (older API)
-    model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' })
+    model = genAI.getGenerativeModel({ model: MODEL_NAME })
     useAPI = true
-    console.log('AI model initialized with gemini-pro')
+    console.log(`AI model initialized with ${MODEL_NAME}`)
+  } else {
+    console.warn('Missing VITE_GEMINI_API_KEY; using fallback explanations.')
   }
 } catch (error) {
   console.warn('Failed to initialize Google AI:', error)
@@ -71,7 +72,7 @@ Keep it concise (3-4 sentences total), beginner-friendly, and focused on learnin
   }
 
   // Use fallback explanation
-  const fallback = fallbackExplanations[concept] || 
+  const fallback = fallbackExplanations[concept] ||
     `${concept} is an important investing concept. ${context || 'It helps investors make informed decisions.'} Understanding this concept is key to becoming a successful investor.`
 
   return fallback
@@ -125,7 +126,7 @@ Answer:`
 
   // Fallback response - try to match common questions to explanations
   const lowerQuestion = question.toLowerCase()
-  
+
   // Check if question mentions a known concept
   for (const [concept, explanation] of Object.entries(fallbackExplanations)) {
     const lowerConcept = concept.toLowerCase()
@@ -133,7 +134,7 @@ Answer:`
       return explanation
     }
   }
-  
+
   // Generic fallback
   return `I understand you're asking about: "${question}". While the AI service is currently unavailable, I'd be happy to help you learn about investing concepts. Please try asking about specific concepts like "P/E Ratio", "Dividends", "Volatility", or "Value Investing" using the "?" buttons on the page for detailed explanations.`
 }
